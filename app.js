@@ -8,6 +8,7 @@ const PORT  = 3500;
 
 
 
+
 app.get('/', (req,res) => {
 res.send('we are on home')
 
@@ -20,8 +21,11 @@ res.send("Hello tehre!")
 
 
 })
+
 app.use('/posts', () => {
     console.log("hell")
 })
 
 app.listen(PORT);
+
+
