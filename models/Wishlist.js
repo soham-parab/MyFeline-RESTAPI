@@ -1,10 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const WishlistSchema = mongoose.Schema({
-    title : {
-        type : String,
-        required : true
-    },
-})
+   name:String,
+   cart: [],
+   date: {
+      type: Date,
+      default: Date.now,
+   },
+});
 
-module.exports = mongoose.model('Wishlist',WishlistSchema)
+module.exports = mongoose.model("Wishlist", WishlistSchema);

@@ -4,10 +4,17 @@ const mongoose = require("mongoose");
 const cartRoute = require("./routes/cart");
 const wishlistRoute = require("./routes/wishlist");
 const productsRoute = require("./routes/products");
+const bodyParser = require('body-parser')
+const cors = require('cors')
 require("dotenv/config");
 
 //ROUTES
 const PORT = 3500;
+
+//MIDDLEWARES
+app.use(bodyParser.json())
+app.use(cors())
+
 
 app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
