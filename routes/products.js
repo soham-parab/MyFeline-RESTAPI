@@ -16,8 +16,10 @@ router.get("/", async (req, res) => {
 
 //SUBMITS POST
 router.post("/", async (req, res) => {
+   console.log(req.body._id)
    try {
       const productItem = new Products({
+
          name: req.body.name,
          description: req.body.description,
 
