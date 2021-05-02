@@ -20,13 +20,6 @@ app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/products", productsRoute);
 
-app.get("/", (req, res) => {
-   res.send("we are on home");
-});
-
-app.get("/posts", (req, res) => {
-   res.send("Hello tehre!");
-});
 
 mongoose.connect(
    process.env.DB_CONNECTION,

@@ -22,8 +22,17 @@ router.get("/", async (req, res) => {
 router.post("/", async (req,res)=>{
     try {
     const wishlistItem = new Wishlist({
-       name: req.body.name,
-       description: req.body.description,
+      name: req.body.name,
+      description: req.body.description,
+
+      images: req.body.images,
+      price: req.body.price,
+      rating: req.body.rating,
+      total_ratings: req.body.total_ratings,
+      category: req.body.category,
+      featured: req.body.featured,
+      brand: req.body.brand,
+      stock: req.body.stock,
     });
     const savedItem = await wishlistItem.save();
     res.json(savedItem);

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const CartSchema = mongoose.Schema({
     name:String,
     description:[],
-    images:[],price: Number,
+    images:[],
+    price: Number,
     rating: Number,
     total_ratings: Number,
     category: String,

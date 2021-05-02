@@ -24,6 +24,15 @@ router.post("/", async (req, res) => {
       const cartItem = new Cart({
          name: req.body.name,
          description: req.body.description,
+
+         images: req.body.images,
+         price: req.body.price,
+         rating: req.body.rating,
+         total_ratings: req.body.total_ratings,
+         category: req.body.category,
+         featured: req.body.featured,
+         brand: req.body.brand,
+         stock: req.body.stock,
       });
       const savedItem = await cartItem.save();
       res.json(savedItem);
