@@ -11,6 +11,7 @@ const ProductsSchema = mongoose.Schema({
     featured: Boolean,
     brand: String,
     stock: Boolean,
+    quantity:Number,
     
 })
 

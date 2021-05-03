@@ -33,6 +33,7 @@ router.post("/", async (req,res)=>{
       featured: req.body.featured,
       brand: req.body.brand,
       stock: req.body.stock,
+      quantity: req.body.quantity,
     });
     const savedItem = await wishlistItem.save();
     res.json(savedItem);
@@ -57,7 +58,8 @@ router.get("/:itemId", async (req, res) => {
 router.delete("/:itemId", async (req,res)=> {
     try {
         const removeItem = await Wishlist.remove({_id: req.params.itemId})
-       res.json(removeItem)}
+        const newWishlist = await Wishlist.find();
+       res.json(newWishlist)}
         catch(err){
             res.json({message:err})
         }

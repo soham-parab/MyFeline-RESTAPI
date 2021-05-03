@@ -5,7 +5,8 @@ const cartRoute = require("./routes/cart");
 const wishlistRoute = require("./routes/wishlist");
 const productsRoute = require("./routes/products");
 const bodyParser = require('body-parser')
-const cors = require('cors')
+const cors = require('cors');
+const router = require("./routes/wishlist");
 require("dotenv/config");
 
 //ROUTES
@@ -20,6 +21,10 @@ app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/products", productsRoute);
 
+
+app.get("/", (req,res) => {
+   res.send("juasdjaksd")
+})
 
 mongoose.connect(
    process.env.DB_CONNECTION,

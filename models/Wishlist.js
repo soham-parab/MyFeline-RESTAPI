@@ -11,6 +11,7 @@ const WishlistSchema = mongoose.Schema({
     featured: Boolean,
     brand: String,
     stock: Boolean,
+    quantity:Number
 });
 
 module.exports = mongoose.model("Wishlist", WishlistSchema);

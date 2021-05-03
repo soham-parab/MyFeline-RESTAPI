@@ -31,6 +31,7 @@ router.post("/", async (req, res) => {
          featured: req.body.featured,
          brand: req.body.brand,
          stock: req.body.stock,
+         quantity:req.body.quantity,
          date: {
             type: Date,
             default: Date.now,

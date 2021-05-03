@@ -4,10 +4,6 @@ const router = express.Router();
 
 const Cart = require("../models/Cart");
 
-
-
-
-
 //GET POSTS
 router.get("/", async (req, res) => {
    try {
@@ -33,6 +29,7 @@ router.post("/", async (req, res) => {
          featured: req.body.featured,
          brand: req.body.brand,
          stock: req.body.stock,
+         quantity: req.body.quantity,
       });
       const savedItem = await cartItem.save();
       res.json(savedItem);
@@ -43,23 +40,38 @@ router.post("/", async (req, res) => {
 
 router.get("/:itemId", async (req, res) => {
    try {
-      const itemFound = await Cart.findById(req.params.itemId); 
-      res.json(itemFound)
-   }
-   catch(err) { 
-       res.json({message:err})
+      const itemFound = await Cart.findById(req.params.itemId);
+      res.json(itemFound);
+   } catch (err) {
+      res.json({ message: err });
    }
 });
 
-router.delete("/:itemId", async (req,res)=> {
- try {
-     const removeItem = await Cart.remove({_id: req.params.itemId})
-    res.json(removeItem)}
-     catch(err){
-         res.json({message:err})
-     }
+router.delete("/:itemId", async (req, res) => {
+   try {
+      const removeItem = await Cart.remove({ _id: req.params.itemId });
+      const newCart = await Cart.find();
+      res.json(newCart);
+   } catch (err) {
+      res.json({ message: err });
+   }
+});
 
-})
-
+router.patch("/:prdId", async (req, res) => {
+   try {
+      const updatedPrd = await Cart.updateOne(
+         { _id: req.params.prdId },
+         {
+            $set: { quantity: req.body.quantity },
+         }
+      );
+      const newPrd = await Cart.find();
+      res.json(newPrd);
+      console.log(updatedPrd);
+   } catch (err) {
+      res.json({ message: err });
+      console.log(err);
+   }
+});
 
 module.exports = router;
