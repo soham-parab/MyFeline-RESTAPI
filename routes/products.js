@@ -16,13 +16,11 @@ router.get("/", async (req, res) => {
 
 //SUBMITS POST
 router.post("/", async (req, res) => {
-   console.log(req.body._id)
+   console.log(req.body._id);
    try {
       const productItem = new Products({
-
          name: req.body.name,
          description: req.body.description,
-
          images: req.body.images,
          price: req.body.price,
          rating: req.body.rating,
@@ -31,7 +29,7 @@ router.post("/", async (req, res) => {
          featured: req.body.featured,
          brand: req.body.brand,
          stock: req.body.stock,
-         quantity:req.body.quantity,
+         quantity: req.body.quantity,
          date: {
             type: Date,
             default: Date.now,

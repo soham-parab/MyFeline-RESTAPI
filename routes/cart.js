@@ -20,7 +20,6 @@ router.post("/", async (req, res) => {
       const cartItem = new Cart({
          name: req.body.name,
          description: req.body.description,
-
          images: req.body.images,
          price: req.body.price,
          rating: req.body.rating,
@@ -67,7 +66,7 @@ router.patch("/:prdId", async (req, res) => {
       );
       const newPrd = await Cart.find();
       res.json(newPrd);
-      console.log(updatedPrd);
+      
    } catch (err) {
       res.json({ message: err });
       console.log(err);
