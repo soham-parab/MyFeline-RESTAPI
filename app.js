@@ -12,7 +12,7 @@ const loginRoute = require("./routes/LoginUser");
 require("dotenv/config");
 
 //ROUTES
-const PORT = 3400 || process.env.PORT;
+const PORT = process.env.PORT || 3400;
 
 //MIDDLEWARES
 app.use(bodyParser.json());
