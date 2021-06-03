@@ -1,8 +1,7 @@
 const express = require("express");
-
 const router = express.Router();
-
 const Cart = require("../models/Cart");
+const verify = require("../Middlewares/verifyToken");
 
 //GET POSTS
 router.get("/", async (req, res) => {
@@ -15,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //SUBMITS POST
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
    try {
       const cartItem = new Cart({
          name: req.body.name,
@@ -37,6 +36,7 @@ router.post("/", async (req, res) => {
    }
 });
 
+//specific item
 router.get("/:itemId", async (req, res) => {
    try {
       const itemFound = await Cart.findById(req.params.itemId);
@@ -46,6 +46,7 @@ router.get("/:itemId", async (req, res) => {
    }
 });
 
+//delete item
 router.delete("/:itemId", async (req, res) => {
    try {
       const removeItem = await Cart.remove({ _id: req.params.itemId });
@@ -56,6 +57,7 @@ router.delete("/:itemId", async (req, res) => {
    }
 });
 
+//update cart item
 router.patch("/:prdId", async (req, res) => {
    try {
       const updatedPrd = await Cart.updateOne(
@@ -66,10 +68,8 @@ router.patch("/:prdId", async (req, res) => {
       );
       const newPrd = await Cart.find();
       res.json(newPrd);
-      
    } catch (err) {
       res.json({ message: err });
-      console.log(err);
    }
 });
 
