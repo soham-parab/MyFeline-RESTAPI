@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 //SUBMITS POST
-router.post("/", verify, async (req, res) => {
+router.post("/", async (req, res) => {
    try {
       const cartItem = new Cart({
          name: req.body.name,
