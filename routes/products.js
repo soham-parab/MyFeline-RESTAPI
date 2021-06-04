@@ -16,24 +16,8 @@ router.get("/", async (req, res) => {
 
 //SUBMITS POST
 router.post("/", async (req, res) => {
+   const productItem = new Products(req.body);
    try {
-      const productItem = new Products({
-         name: req.body.name,
-         description: req.body.description,
-         images: req.body.images,
-         price: req.body.price,
-         rating: req.body.rating,
-         total_ratings: req.body.total_ratings,
-         category: req.body.category,
-         featured: req.body.featured,
-         brand: req.body.brand,
-         stock: req.body.stock,
-         quantity: req.body.quantity,
-         date: {
-            type: Date,
-            default: Date.now,
-         },
-      });
       const savedItem = await productItem.save();
       res.json(savedItem);
    } catch (err) {
@@ -41,6 +25,7 @@ router.post("/", async (req, res) => {
    }
 });
 
+//get specific product
 router.get("/:itemId", async (req, res) => {
    try {
       const itemFound = await Products.findById(req.params.itemId);
@@ -50,6 +35,7 @@ router.get("/:itemId", async (req, res) => {
    }
 });
 
+//remove specific product
 router.delete("/:itemId", async (req, res) => {
    try {
       const removeItem = await Products.remove({ _id: req.params.itemId });

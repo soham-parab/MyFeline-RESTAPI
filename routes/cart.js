@@ -4,35 +4,28 @@ const Cart = require("../models/Cart");
 const verify = require("../Middlewares/verifyToken");
 
 //GET POSTS
-router.get("/", async (req, res) => {
+router.get("/", verify, async (req, res) => {
    try {
       const cartItems = await Cart.find();
       res.json(cartItems);
    } catch (err) {
-      res.json({ message: err });
+      res.status(400).json({ message: "Error", error: err });
    }
 });
 
 //SUBMITS POST
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
+   const addProductToCart = req.body;
+
+   const newCartItem = new Cart({
+      ...addProductToCart,
+      user: req.user_id,
+   });
    try {
-      const cartItem = new Cart({
-         name: req.body.name,
-         description: req.body.description,
-         images: req.body.images,
-         price: req.body.price,
-         rating: req.body.rating,
-         total_ratings: req.body.total_ratings,
-         category: req.body.category,
-         featured: req.body.featured,
-         brand: req.body.brand,
-         stock: req.body.stock,
-         quantity: req.body.quantity,
-      });
-      const savedItem = await cartItem.save();
+      const savedItem = await newCartItem.save();
       res.json(savedItem);
    } catch (err) {
-      res.json({ message: err });
+      res.status(401).json({ success: false, message: err });
    }
 });
 
@@ -47,9 +40,12 @@ router.get("/:itemId", async (req, res) => {
 });
 
 //delete item
-router.delete("/:itemId", async (req, res) => {
+router.delete("/:itemId", verify, async (req, res) => {
    try {
-      const removeItem = await Cart.remove({ _id: req.params.itemId });
+      const removeItem = await Cart.remove({
+         _id: req.params.itemId,
+         user: req.user._id,
+      });
       const newCart = await Cart.find();
       res.json(newCart);
    } catch (err) {
@@ -58,10 +54,10 @@ router.delete("/:itemId", async (req, res) => {
 });
 
 //update cart item
-router.patch("/:prdId", async (req, res) => {
+router.patch("/:prdId", verify, async (req, res) => {
    try {
       const updatedPrd = await Cart.updateOne(
-         { _id: req.params.prdId },
+         { _id: req.params.prdId, user: req.user._id },
          {
             $set: { quantity: req.body.quantity },
          }

@@ -1,8 +1,7 @@
 const express = require("express");
-
 const router = express.Router();
-
 const Wishlist = require("../models/Wishlist");
+const verify = require("../Middlewares/verifyToken");
 
 //GET POSTS
 router.get("/", async (req, res) => {
@@ -16,21 +15,12 @@ router.get("/", async (req, res) => {
 
 // SUBMIT POSTS
 
-router.post("/", async (req, res) => {
+router.post("/", verify, async (req, res) => {
+   const addItemToWishlist = req.body;
    try {
       const wishlistItem = new Wishlist({
-         name: req.body.name,
-         description: req.body.description,
-
-         images: req.body.images,
-         price: req.body.price,
-         rating: req.body.rating,
-         total_ratings: req.body.total_ratings,
-         category: req.body.category,
-         featured: req.body.featured,
-         brand: req.body.brand,
-         stock: req.body.stock,
-         quantity: req.body.quantity,
+         addItemToWishlist,
+         user: req.body._id,
       });
       const savedItem = await wishlistItem.save();
       res.json(savedItem);
@@ -39,7 +29,7 @@ router.post("/", async (req, res) => {
    }
 });
 
-router.get("/:itemId", async (req, res) => {
+router.get("/:itemId", verify, async (req, res) => {
    try {
       const itemFound = await Wishlist.findById(req.params.itemId);
       res.json(itemFound);
@@ -48,9 +38,13 @@ router.get("/:itemId", async (req, res) => {
    }
 });
 
-router.delete("/:itemId", async (req, res) => {
+router.delete("/:itemId", verify, async (req, res) => {
+   const removeItemFromWishlist = req.body;
    try {
-      const removeItem = await Wishlist.remove({ _id: req.params.itemId });
+      const removeItem = await Wishlist.remove({
+         _id: req.params.itemId,
+         user: req.body._id,
+      });
       const newWishlist = await Wishlist.find();
       res.json(newWishlist);
    } catch (err) {
