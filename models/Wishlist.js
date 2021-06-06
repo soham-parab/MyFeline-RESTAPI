@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const WishlistSchema = mongoose.Schema({
    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+   productID: { type: String },
    name: String,
    description: [],
    images: [],

@@ -70,3 +70,8 @@ router.patch("/:prdId", verify, async (req, res) => {
 });
 
 module.exports = router;
+
+// "user": "60bcae566a53cd195c5bd6b0"
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJjYWU1NjZhNTNjZDE5NWM1YmQ2YjAiLCJpYXQiOjE2MjI5NzgxODl9.1x1A9ex4MtiaXvmA7Rk1gycXDVyin7NZTNuzTu9Oi9s
+//   "email":"s@s.com",
+// "password": "soham1"
