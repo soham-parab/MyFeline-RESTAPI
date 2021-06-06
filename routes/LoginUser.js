@@ -1,10 +1,13 @@
 const express = require("express");
-const Joi = require("joi");
 const router = express.Router();
 const User = require("../models/User");
 const { loginValidation } = require("../Middlewares/Validation");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+router.get("/", (req, res) => {
+   res.send("loginnnnnnn");
+});
 
 router.post("/", async (req, res) => {
    const { error } = loginValidation(req.body);
@@ -27,7 +30,10 @@ router.post("/", async (req, res) => {
    }
 
    const token = jwt.sign({ _id: userExists._id }, process.env.TOKEN_SECRET);
-   res.header("auth-token", token).send(token);
+   res.header("auth-token", token).json({
+      token: token,
+      userExists: userExists,
+   });
 });
 
 module.exports = router;

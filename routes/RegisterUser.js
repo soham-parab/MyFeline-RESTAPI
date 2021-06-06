@@ -5,6 +5,10 @@ const User = require("../models/User");
 const { registerValidation } = require("../Middlewares/Validation");
 const bcrypt = require("bcryptjs");
 
+router.get("/", (req, rees) => {
+   res.send("Register yourself!");
+});
+
 router.post("/", async (req, res) => {
    const { error } = registerValidation(req.body);
    if (error) return res.send(error.details[0].message).status(401);
@@ -26,15 +30,10 @@ router.post("/", async (req, res) => {
 
    try {
       const savedUser = await user.save();
-      res.send({ user: user._id });
+      res.send({ User: savedUser._id });
    } catch (error) {
       res.status(400).send(error);
    }
-});
-
-router.get("/", async (req, res) => {
-   const body = await User.find();
-   res.send(body);
 });
 
 module.exports = router;
