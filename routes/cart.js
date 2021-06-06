@@ -6,7 +6,7 @@ const verify = require("../Middlewares/verifyToken");
 //GET POSTS
 router.get("/", verify, async (req, res) => {
    try {
-      const cartItems = await Cart.find();
+      const cartItems = await Cart.find({ user: req.user._id });
       res.json(cartItems);
    } catch (err) {
       res.status(400).json({ message: "Error", error: err });
