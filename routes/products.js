@@ -5,7 +5,7 @@ const router = express.Router();
 const Products = require("../models/Products");
 
 //GET POSTS
-router.get("/", verify, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const productItems = await Products.find();
     res.json(productItems);
