@@ -25,15 +25,15 @@ app.use("/register", registerRoute);
 app.use("/login", loginRoute);
 
 app.get("/", (req, res) => {
-   res.send("juasdjaksd");
+  res.send("juasdjaksd");
 });
 
 mongoose.connect(
-   process.env.DB_CONNECTION,
-   { useNewUrlParser: true, useUnifiedTopology: true },
-   () => {
-      console.log("works");
-   }
+  process.env.DB_CONNECTION,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("works");
+  }
 );
 
 app.listen(PORT);
