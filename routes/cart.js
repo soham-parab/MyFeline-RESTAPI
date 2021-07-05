@@ -30,7 +30,7 @@ router.post("/", verify, async (req, res) => {
 });
 
 //specific item
-router.get("/:itemId", async (req, res) => {
+router.get("/:itemId", verify, async (req, res) => {
   try {
     const itemFound = await Cart.findById(req.params.itemId);
     res.json(itemFound);
@@ -46,7 +46,7 @@ router.delete("/:itemId", verify, async (req, res) => {
       _id: req.params.itemId,
       user: req.user._id,
     });
-    const newCart = await Cart.find();
+    const newCart = await Cart.find({ user: req.user._id });
     res.json(newCart);
   } catch (err) {
     res.json({ message: err });
@@ -62,7 +62,7 @@ router.patch("/:prdId", verify, async (req, res) => {
         $set: { quantity: req.body.quantity },
       }
     );
-    const newPrd = await Cart.find();
+    const newPrd = await Cart.find({ user: req.user._id });
     res.json(newPrd);
   } catch (err) {
     res.json({ message: err });
@@ -70,8 +70,3 @@ router.patch("/:prdId", verify, async (req, res) => {
 });
 
 module.exports = router;
-
-// "user": "60bcae566a53cd195c5bd6b0"
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJjYWU1NjZhNTNjZDE5NWM1YmQ2YjAiLCJpYXQiOjE2MjI5NzgxODl9.1x1A9ex4MtiaXvmA7Rk1gycXDVyin7NZTNuzTu9Oi9s
-//   "email":"s@s.com",
-// "password": "soham1"
