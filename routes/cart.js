@@ -42,6 +42,7 @@ router.get("/:itemId", verify, async (req, res) => {
 //delete item
 router.delete("/:itemId", verify, async (req, res) => {
   try {
+    console.log(req.params.itemId);
     const removeItem = await Cart.remove({
       _id: req.params.itemId,
       user: req.user._id,
