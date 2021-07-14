@@ -19,7 +19,7 @@ router.post("/", verify, async (req, res) => {
   const addItemToWishlist = req.body;
   try {
     const wishlistItem = new Wishlist({
-      addItemToWishlist,
+      ...addItemToWishlist,
       user: req.body._id,
     });
     const savedItem = await wishlistItem.save();
