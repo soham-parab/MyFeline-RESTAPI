@@ -16,11 +16,12 @@ router.get("/", verify, async (req, res) => {
 // SUBMIT POSTS
 
 router.post("/", verify, async (req, res) => {
+  console.log(req.user._id);
   const addItemToWishlist = req.body;
   try {
     const wishlistItem = new Wishlist({
       ...addItemToWishlist,
-      user: req.body._id,
+      user: req.user._id,
     });
     const savedItem = await wishlistItem.save();
     res.json(savedItem);
@@ -43,7 +44,7 @@ router.delete("/:itemId", verify, async (req, res) => {
   try {
     const removeItem = await Wishlist.remove({
       _id: req.params.itemId,
-      user: req.body._id,
+      user: req.user._id,
     });
     const newWishlist = await Wishlist.find({ user: req.user._id });
     res.json(newWishlist);
