@@ -19,7 +19,7 @@ router.post("/", verify, async (req, res) => {
 
   const newCartItem = new Cart({
     ...addProductToCart,
-    user: req.user_id,
+    user: req.user._id,
   });
   try {
     const savedItem = await newCartItem.save();
